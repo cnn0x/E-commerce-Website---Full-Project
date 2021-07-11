@@ -6,6 +6,11 @@ const ProductScehema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    info: {
+      type: Object,
+      default: {},
+      required: true,
+    },
     ratings: {
       type: Array,
       default: [],

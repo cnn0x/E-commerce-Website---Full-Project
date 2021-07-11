@@ -104,6 +104,23 @@ router.put("/cart/:pId/add", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+//add rating
+router.put("/rating/:pId/add", async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    const product = await Product.findById(req.params.pId);
+    await product.updateOne({
+      $push: {
+        ratings: { user: user.email, text: req.body.text, rate: req.body.rate },
+      },
+    });
+    res.status(200).json("added");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //remove product from cart
 router.put("/cart/:pId/remove", async (req, res) => {
   try {
